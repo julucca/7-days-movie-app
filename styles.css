@@ -113,7 +113,6 @@ main {
 }
 
 .movie__info {
-    flex-shrink: 0;
     min-width: 30%;
 }
 

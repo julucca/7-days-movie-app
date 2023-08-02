@@ -1,6 +1,42 @@
 import { apiKey } from '../environment/key.js'
 
-const moviesList = document.querySelector('[data-list]');
+const $moviesList = document.querySelector('[data-list]');
+const $searchInput = document.querySelector('[data-search]');
+const $searchBtn = document.querySelector('[data-searchBtn]')
+
+// [Search Functionality]
+$searchBtn.addEventListener('click', function(event) {
+    event.preventDefault();
+    searchMovie();
+});
+
+$searchInput.addEventListener('keyup', function(event) {
+    if (event.keyCode == 13) {
+        searchMovie()
+        return
+    }
+});
+
+async function searchMovie() {    
+    const inputValue = $searchInput.value;
+
+    if(inputValue != '') {
+        cleanAllMovies();
+        const movies = await searchMovieByName(inputValue);
+        movies.forEach(movie => renderMovie(movie));
+    }
+};
+
+function cleanAllMovies() {
+    $moviesList.innerHTML = '';
+};
+
+async function searchMovieByName(title) {
+    const url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${title}&language=en-US&page=1`;
+    const fetchResponse = await fetch(url);
+    const { results } = await fetchResponse.json();
+    return results
+};
 
 // [API Request]
 async function getPopularMovies() {
@@ -26,7 +62,7 @@ function renderMovie(movie) {
 
     const movieItem = document.createElement('li');
     movieItem.classList.add('movie__item');
-    moviesList.appendChild(movieItem);
+    $moviesList.appendChild(movieItem);
 
     const movieImageContainer = document.createElement('div');
     movieImageContainer.classList.add('movie__image');
