@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./styles.css">
+    <title>Movies App</title>
+</head>
+<body>
+    <main>
+        <section>
+            <h1 class="global__title">Filmes Populares</h1>
+
+            <form>
+                <div class="form__search">
+                    <input type="search" id="search" name="search" placeholder="Digite algum filme para pesquisar...">
+                    <button type="submit"></button>
+                </div>
+                <div class="form__favorite">
+                    <input type="checkbox" id="favorite" name="favorite">
+                    <label for="favorite">Mostrar meus filmes favoritos apenas</label>
+                </div>
+            </form>
+        </section>
+
+        <section>
+            <ul class="movie__list">
+                <li class="movie__item">
+                    <img src="./img/movie-1.png" alt="">
+                    <div class="movie__info">
+                        <h2 class="movie__title">Avengers Endgame (2019)</h2>
+                        <div class="movie__actions">
+                            <span>
+                                <span class="movie__icon movie__icon--rating"></span>
+                                9.2
+                            </span>
+                            <button><span class="movie__icon movie__icon--favorite"></span>Favoritar</button>
+                        </div>
+                    </div>
+                    <p class="movie__description">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                </li>
+            </ul>
+        </section>
+    </main>
+</body>
+</html>
