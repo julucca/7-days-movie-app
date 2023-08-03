@@ -46,6 +46,44 @@ async function getPopularMovies() {
     return results;
 }
 
+// [Favorite Functionality]
+function favoriteBtnPressed(event, movie) {
+    const favoriteState = {
+        favorited: 'assets/img/icon-favorite-full.svg',
+        notFavorited: 'assets/img/icon-favorite.svg'
+    }
+
+    if(event.target.src.includes(favoriteState.notFavorited)) {
+        event.target.src = favoriteState.favorited
+        addMovieToFavorites(movie)
+    } else {
+        event.target.src = favoriteState.notFavorited
+        removeMovieFromFavorites(movie.id)
+    }
+}
+
+function getFavoriteMovies() {
+    return JSON.parse(localStorage.getItem('favoriteMovies')) || [];
+}
+
+function addMovieToFavorites(movie) {
+    const movies = getFavoriteMovies()
+    movies.push(movie);
+    localStorage.setItem('favoriteMovies', JSON.stringify(movies))
+}
+
+function checkMovieIsFavorited(id) {
+    const movies = getFavoriteMovies()
+    return movies.find(movie => movie.id == id)
+}
+
+function removeMovieFromFavorites(id) {
+    const movies = getFavoriteMovies()
+    const findMovie = movies.find(movie => movie.id == id)
+    const newMovies = movies.filter(movie => movie.id != findMovie.id)
+    localStorage.setItem('favoriteMovies', JSON.stringify(newMovies))
+}
+
 // [Render Movies]
 window.onload = async function() {
     const movies = await getPopularMovies();
@@ -54,8 +92,8 @@ window.onload = async function() {
 
 function renderMovie(movie) {
     
-    const { title, poster_path, vote_average, release_date, overview } = movie;
-    const isFavorited = false;
+    const { id, title, poster_path, vote_average, release_date, overview } = movie;
+    const isFavorited = checkMovieIsFavorited(id);
 
     const year = new Date(release_date).getFullYear();
     const image = `https://image.tmdb.org/t/p/w500${poster_path}`;
@@ -100,6 +138,7 @@ function renderMovie(movie) {
     movieFavoriteIcon.classList.add('movie__icon');
     movieFavoriteIcon.classList.add('movie__icon--favorite');
     movieFavoriteIcon.src = isFavorited ? './assets/img/icon-favorite-full.svg' : './assets/img/icon-favorite.svg';
+    movieFavoriteIcon.addEventListener('click', (event) => favoriteBtnPressed(event, movie));
     movieFavoriteBtn.appendChild(movieFavoriteIcon);
     const movieFavoriteText = document.createElement('span');
     movieFavoriteText.textContent = 'Favoritar';
