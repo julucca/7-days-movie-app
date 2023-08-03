@@ -2,7 +2,8 @@ import { apiKey } from '../environment/key.js'
 
 const $moviesList = document.querySelector('[data-list]');
 const $searchInput = document.querySelector('[data-search]');
-const $searchBtn = document.querySelector('[data-searchBtn]')
+const $searchBtn = document.querySelector('[data-searchBtn]');
+const $checkboxInput = document.querySelector('[data-checkbox]');
 
 // [Search Functionality]
 $searchBtn.addEventListener('click', function(event) {
@@ -84,11 +85,30 @@ function removeMovieFromFavorites(id) {
     localStorage.setItem('favoriteMovies', JSON.stringify(newMovies))
 }
 
-// [Render Movies]
-window.onload = async function() {
+// [Filter Favorites Movies]
+$checkboxInput.addEventListener('change', filterFavoriteMovies);
+
+function filterFavoriteMovies() { 
+    cleanAllMovies();
+    if($checkboxInput.checked) {
+        getAllFavoritesMovies();
+    } else {
+        getAllPopularMovies();
+    }
+};
+
+function getAllFavoritesMovies() {
+    const favoritesMovies = getFavoriteMovies();
+    favoritesMovies.forEach(movie => renderMovie(movie));
+};
+
+async function getAllPopularMovies() {
     const movies = await getPopularMovies();
     movies.forEach(movie => renderMovie(movie));
 }
+
+// [Render Movies]
+window.addEventListener('load', getAllPopularMovies);
 
 function renderMovie(movie) {
     
