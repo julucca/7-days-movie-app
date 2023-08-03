@@ -1,22 +1,25 @@
 import { apiKey } from '../environment/key.js'
 
 const $moviesList = document.querySelector('[data-list]');
+const $form = document.querySelector('[data-form]');
 const $searchInput = document.querySelector('[data-search]');
-const $searchBtn = document.querySelector('[data-searchBtn]');
 const $checkboxInput = document.querySelector('[data-checkbox]');
 
+// [General Functions]
+function updateMovieList(movies) {
+    movies.forEach(movie => renderMovie(movie));
+}
+
+function cleanAllMovies() {
+    $moviesList.innerHTML = '';
+};
+
 // [Search Functionality]
-$searchBtn.addEventListener('click', function(event) {
+$form.addEventListener('submit', function(event) {
     event.preventDefault();
     searchMovie();
-});
-
-$searchInput.addEventListener('keyup', function(event) {
-    if (event.keyCode == 13) {
-        searchMovie()
-        return
-    }
-});
+    $searchInput.value = '';
+})
 
 async function searchMovie() {    
     const inputValue = $searchInput.value;
@@ -24,12 +27,8 @@ async function searchMovie() {
     if(inputValue != '') {
         cleanAllMovies();
         const movies = await searchMovieByName(inputValue);
-        movies.forEach(movie => renderMovie(movie));
+        updateMovieList(movies);
     }
-};
-
-function cleanAllMovies() {
-    $moviesList.innerHTML = '';
 };
 
 async function searchMovieByName(title) {
