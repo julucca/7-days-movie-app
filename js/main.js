@@ -10,7 +10,7 @@ function updateMovieList(movies) {
     movies.forEach(movie => renderMovie(movie));
 }
 
-function cleanAllMovies() {
+function cleanMovieList() {
     $moviesList.innerHTML = '';
 };
 
@@ -25,7 +25,7 @@ async function searchMovie() {
     const inputValue = $searchInput.value;
 
     if(inputValue != '') {
-        cleanAllMovies();
+        cleanMovieList();
         const movies = await searchMovieByName(inputValue);
         updateMovieList(movies);
     }
@@ -88,7 +88,7 @@ function removeMovieFromFavorites(id) {
 $checkboxInput.addEventListener('change', filterFavoriteMovies);
 
 function filterFavoriteMovies() { 
-    cleanAllMovies();
+    cleanMovieList();
     if($checkboxInput.checked) {
         getAllFavoritesMovies();
     } else {
@@ -97,13 +97,13 @@ function filterFavoriteMovies() {
 };
 
 function getAllFavoritesMovies() {
-    const favoritesMovies = getFavoriteMovies();
-    favoritesMovies.forEach(movie => renderMovie(movie));
+    const movies = getFavoriteMovies();
+    updateMovieList(movies);
 };
 
 async function getAllPopularMovies() {
     const movies = await getPopularMovies();
-    movies.forEach(movie => renderMovie(movie));
+    updateMovieList(movies);
 }
 
 // [Render Movies]
