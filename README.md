@@ -9,7 +9,7 @@ A proposta do desafio foi consumir a API de filmes do "The Movie DataBase" com J
 A aplicação possui as funcionalidades de exibir filmes populares, busca, favoritar/desfavoritar e filtragem.
 
 <div align="center">
-	<img width=600px src="./images/preview/features-preview.gif">
+	<img width=600px src="./assets/preview/features-preview.gif">
 </div><br>
 
 **Fluxo do projeto:**
@@ -24,7 +24,7 @@ A aplicação possui as funcionalidades de exibir filmes populares, busca, favor
 Para desenvolver a aplicação a abordagem utilizada foi o mobile-first e depois segui com os ajustes necessários para atingir o resultado do Figma.
 
 <div align="center">
-	<img width=600px src="./images/preview/responsive-preview.gif">
+	<img width=600px src="./assets/preview/responsive-preview.gif">
 </div><br>
 
 ## 👩‍💻 Tecnologias utilizadas
