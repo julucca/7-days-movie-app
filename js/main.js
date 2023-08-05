@@ -1,4 +1,4 @@
-import { apiKey } from '../environment/key.js'
+import { api } from './api.js'
 
 const $moviesList = document.querySelector('[data-list]');
 const $form = document.querySelector('[data-form]');
@@ -26,25 +26,10 @@ async function searchMovie() {
 
     if(inputValue != '') {
         cleanMovieList();
-        const movies = await searchMovieByName(inputValue);
+        const movies = await api.searchMovieByName(inputValue);
         updateMovieList(movies);
     }
 };
-
-async function searchMovieByName(title) {
-    const url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${title}&language=en-US&page=1`;
-    const fetchResponse = await fetch(url);
-    const { results } = await fetchResponse.json();
-    return results
-};
-
-// [API Request]
-async function getPopularMovies() {
-    const url = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en-US&page=1`;
-    const fetchResponse = await fetch(url);
-    const { results } = await fetchResponse.json();
-    return results;
-}
 
 // [Favorite Functionality]
 function favoriteBtnPressed(event, movie) {
@@ -102,7 +87,7 @@ function getAllFavoritesMovies() {
 };
 
 async function getAllPopularMovies() {
-    const movies = await getPopularMovies();
+    const movies = await api.getPopularMovies();
     updateMovieList(movies);
 }
 
