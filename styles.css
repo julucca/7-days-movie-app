@@ -246,6 +246,7 @@ main {
 
     .movie__info {
         text-align: left;
+        max-width: 28%;
     }
 
     .movie__actions {
@@ -254,6 +255,6 @@ main {
 
     .movie__description {
         text-align: left;
-        max-width: 50%;
+        width: 50%;
     }
 }
