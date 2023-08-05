@@ -1,6 +1,6 @@
 # 7 Days Of Code: JavaScript e DOM com API
 
-Repositório desenvolvido durante os [7 Days de JavaScript e DOM com API](https://7daysofcode.io/matricula/javascript-e-dom-api) da Giovanna Moeller.
+Projeto desenvolvido durante os [7 Days de JavaScript e DOM com API](https://7daysofcode.io/matricula/javascript-e-dom-api) da Giovanna Moeller.
 
 ## 📁 Detalhes do projeto
 
