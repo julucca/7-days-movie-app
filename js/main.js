@@ -77,6 +77,7 @@ function renderMovie(movie) {
     
     const { id, title, poster_path, vote_average, release_date, overview } = movie;
     const isFavorited = LocalStorage.checkMovieIsFavorited(id);
+    const description = overview;
 
     const year = new Date(release_date).getFullYear();
     const image = `https://image.tmdb.org/t/p/w500${poster_path}`;
@@ -129,6 +130,6 @@ function renderMovie(movie) {
 
     const movieDescription = document.createElement('p');
     movieDescription.classList.add('movie__description');
-    movieDescription.textContent = overview;
+    movieDescription.textContent = description == '' ? 'Sinopse não está disponível.' : description;
     movieItem.appendChild(movieDescription);
 }
