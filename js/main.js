@@ -1,4 +1,5 @@
 import { api } from './api.js'
+import { LocalStorage } from './localStorage.js'
 
 const $moviesList = document.querySelector('[data-list]');
 const $form = document.querySelector('[data-form]');
@@ -40,33 +41,11 @@ function favoriteBtnPressed(event, movie) {
 
     if(event.target.src.includes(favoriteState.notFavorited)) {
         event.target.src = favoriteState.favorited
-        addMovieToFavorites(movie)
+        LocalStorage.addMovieToFavorites(movie)
     } else {
         event.target.src = favoriteState.notFavorited
-        removeMovieFromFavorites(movie.id)
+        LocalStorage.removeMovieFromFavorites(movie.id)
     }
-}
-
-function getFavoriteMovies() {
-    return JSON.parse(localStorage.getItem('favoriteMovies')) || [];
-}
-
-function addMovieToFavorites(movie) {
-    const movies = getFavoriteMovies()
-    movies.push(movie);
-    localStorage.setItem('favoriteMovies', JSON.stringify(movies))
-}
-
-function checkMovieIsFavorited(id) {
-    const movies = getFavoriteMovies()
-    return movies.find(movie => movie.id == id)
-}
-
-function removeMovieFromFavorites(id) {
-    const movies = getFavoriteMovies()
-    const findMovie = movies.find(movie => movie.id == id)
-    const newMovies = movies.filter(movie => movie.id != findMovie.id)
-    localStorage.setItem('favoriteMovies', JSON.stringify(newMovies))
 }
 
 // [Filter Favorites Movies]
@@ -82,7 +61,7 @@ function filterFavoriteMovies() {
 };
 
 function getAllFavoritesMovies() {
-    const movies = getFavoriteMovies();
+    const movies = LocalStorage.getFavoriteMovies();
     updateMovieList(movies);
 };
 
@@ -97,7 +76,7 @@ window.addEventListener('load', getAllPopularMovies);
 function renderMovie(movie) {
     
     const { id, title, poster_path, vote_average, release_date, overview } = movie;
-    const isFavorited = checkMovieIsFavorited(id);
+    const isFavorited = LocalStorage.checkMovieIsFavorited(id);
 
     const year = new Date(release_date).getFullYear();
     const image = `https://image.tmdb.org/t/p/w500${poster_path}`;
